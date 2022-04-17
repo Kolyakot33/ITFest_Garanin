@@ -8,12 +8,8 @@ from tg import send_photo, send_message
 
 def get_posts(id): #получает посты по id
     vk_session = vk_api.VkApi(token=config.vktoken)
-    try:
-        vk_session.auth(token_only=True)
-    except vk_api.AuthError as error_msg:
-        print(error_msg)
-        return
-    tools = vk_api.VkTools(vk_session)
+    _vk_api = vk_session.get_api()
+    tools = vk_api.VkTools(_vk_api)
     wall = tools.get_all('wall.get', 10, {'owner_id': id})
     return wall["items"]
 
