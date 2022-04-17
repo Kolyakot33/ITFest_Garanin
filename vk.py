@@ -22,6 +22,7 @@ async def vk_poll(): # загружает посты и проверяет но�
             print(tag)
             sent_posts = data_loader.get_posts()
             for post in posts:
+                print(post)
                 if not str(str(tag["id"]) + "_" + str(post["id"])) in sent_posts:
                     await process_post(post, sent_posts, tag)
         await asyncio.sleep(config.refresh_period)
