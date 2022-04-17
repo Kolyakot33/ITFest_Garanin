@@ -30,7 +30,7 @@ main_kb.insert(b_help)
 
 # команды
 
-@dispatcher.message_handler(lambda s: s.text in ["/help", "Список команд"])
+@dispatcher.message_handler(lambda s: s.text in ["/help", "📄Список команд"])
 async def _help(message: Message):
     await message.reply("Вот список доступных команд:\n"
                         "/help - эта справка\n"
@@ -40,7 +40,7 @@ async def _help(message: Message):
                         "/s - кнопки для подписки/отписки")
 
 
-@dispatcher.message_handler(lambda s: s.text in ["/support", "/feedback", "Обратная связь"])
+@dispatcher.message_handler(lambda s: s.text in ["/support", "/feedback", "📩Обратная связь"])
 async def _support(message: Message):
     await message.reply("Привет! Если у вас возникли какие-либо вопросы, то вот наши контакты: \n"
                         "Группа ВКонтакте Научим.online https://vk.com/nauchim.online\n"
@@ -63,7 +63,7 @@ async def _list(message: Message):
 
 
 
-@dispatcher.message_handler(lambda s: s.text in ["/s", "Подписаться на новости"])
+@dispatcher.message_handler(lambda s: s.text in ["/s", "📣Подписаться на новости"])
 async def _subscribe_menu(message: Message):
     await message.reply("Список доступных мероприятий:\n 🔔 - вы подписаны \n 🔕 - вы не подписаны", reply_markup=get_subscribe_menu(message.from_user.id))
 
