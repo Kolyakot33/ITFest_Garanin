@@ -13,6 +13,7 @@ def get_posts(id): #получает посты по id
 
 
 async def vk_poll(_bot): # загружает посты и проверяет новости каждые refresh_period секунд
+    global bot
     bot = _bot
     while True:
         print("POLL!")
