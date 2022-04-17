@@ -23,6 +23,7 @@ async def vk_poll(): # загружает посты и проверяет но�
         print("POLL!")
         for tag in data_loader.get_hashtags().values():
             posts = get_posts(tag["id"])
+            print(posts)
             sent_posts = data_loader.get_posts()
             for post in posts:
                 if not str(str(tag["id"]) + "_" + str(post["id"])) in sent_posts:
