@@ -19,7 +19,7 @@ def get_subscribe_menu(id):  # генерирует меню подписки/о
                                                     callback_data="toggle " + _id))
     return menu
 
-
+# основное меню бота
 main_kb = ReplyKeyboardMarkup(resize_keyboard=True)
 b_subscribe_menu = KeyboardButton("📣Подписаться на новости")
 b_support = KeyboardButton("📩Обратная связь")
@@ -29,7 +29,6 @@ main_kb.add(b_support)
 main_kb.insert(b_help)
 
 # команды
-
 @dispatcher.message_handler(lambda s: s.text in ["/help", "📄Список команд"])
 async def _help(message: Message):
     await message.reply("Вот список доступных команд:\n"
@@ -77,7 +76,7 @@ async def subscribe(message: Message):
     data_loader.write_hashtags(tags)
 
 
-
+# кнопки подписки/отписки
 @dispatcher.callback_query_handler(lambda s: s.data.startswith("toggle"))
 async def _toggle_subscribe(call: CallbackQuery):  # подписывает/отписывает пользователя от мероприятия
     _id = call.data.split()[1]
@@ -92,7 +91,7 @@ async def _toggle_subscribe(call: CallbackQuery):  # подписывает/от
 
 #################################################################################
 
-
+# для отправки из vk.py
 async def send_message(**kwargs):
     await bot.send_message(**kwargs)
 

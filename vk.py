@@ -6,8 +6,7 @@ import config
 from tg import send_photo, send_message
 
 
-def get_posts(id):
-
+def get_posts(id): #получает посты по id
     vk_session = vk_api.VkApi(config.vktoken)
     try:
         vk_session.auth(token_only=True)
@@ -15,11 +14,11 @@ def get_posts(id):
         print(error_msg)
         return
     tools = vk_api.VkTools(vk_session)
-    wall = tools.get_all('wall.get', 100, {'owner_id': id})
+    wall = tools.get_all('wall.get', 10, {'owner_id': id})
     return wall["items"]
 
 
-async def vk_poll():
+async def vk_poll(): # загружает посты и проверяет новости каждые refresh_period секунд
     while True:
         for tag in data_loader.get_hashtags().values():
             posts = get_posts(tag["id"])
@@ -30,7 +29,7 @@ async def vk_poll():
         await asyncio.sleep(config.refresh_period)
 
 
-async def process_post(post, sent_posts, tag):
+async def process_post(post, sent_posts, tag): # обрабатывает пост и отправляет пользователю
     if not tag["hashtag"].lower() in post["text"].lower():
         return
     for user in tag["subscribed"]:
