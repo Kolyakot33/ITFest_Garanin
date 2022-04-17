@@ -14,16 +14,16 @@ dispatcher = aiogram.Dispatcher(bot)
 def get_subscribe_menu(id):  # генерирует меню подписки/отписки
     menu = InlineKeyboardMarkup()
     for _id, tag in data_loader.get_hashtags().items():
-        symbol = "✅" if id in tag["subscribed"] else "❌"
+        symbol = "🔔" if id in tag["subscribed"] else "🔕"
         menu.add(InlineKeyboardButton(text=f'{symbol} {tag["hashtag"]} - {tag["description"]}',
                                                     callback_data="toggle " + _id))
     return menu
 
 
 main_kb = ReplyKeyboardMarkup(resize_keyboard=True)
-b_subscribe_menu = KeyboardButton("Подписаться на новости")
-b_support = KeyboardButton("Обратная связь")
-b_help = KeyboardButton("Список команд")
+b_subscribe_menu = KeyboardButton("📣Подписаться на новости")
+b_support = KeyboardButton("📩Обратная связь")
+b_help = KeyboardButton("📄Список команд")
 main_kb.add(b_subscribe_menu)
 main_kb.add(b_support)
 main_kb.insert(b_help)
@@ -65,7 +65,7 @@ async def _list(message: Message):
 
 @dispatcher.message_handler(lambda s: s.text in ["/s", "Подписаться на новости"])
 async def _subscribe_menu(message: Message):
-    await message.reply("Список доступных мероприятий:\n ✅ - вы подписаны \n ❌ - вы не подписаны", reply_markup=get_subscribe_menu(message.from_user.id))
+    await message.reply("Список доступных мероприятий:\n 🔔 - вы подписаны \n 🔕 - вы не подписаны", reply_markup=get_subscribe_menu(message.from_user.id))
 
 
 
