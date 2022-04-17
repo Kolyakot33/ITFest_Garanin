@@ -5,8 +5,6 @@ from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton, ReplyKeybo
 import data_loader
 from config import token
 
-
-
 bot = aiogram.Bot(token=token)
 dispatcher = aiogram.Dispatcher(bot)
 
@@ -16,8 +14,9 @@ def get_subscribe_menu(id):  # генерирует меню подписки/о
     for _id, tag in data_loader.get_hashtags().items():
         symbol = "🔔" if id in tag["subscribed"] else "🔕"
         menu.add(InlineKeyboardButton(text=f'{symbol} {tag["hashtag"]} - {tag["description"]}',
-                                                    callback_data="toggle " + _id))
+                                      callback_data="toggle " + _id))
     return menu
+
 
 # основное меню бота
 main_kb = ReplyKeyboardMarkup(resize_keyboard=True)
@@ -27,6 +26,7 @@ b_help = KeyboardButton("📄Список команд")
 main_kb.add(b_subscribe_menu)
 main_kb.add(b_support)
 main_kb.insert(b_help)
+
 
 # команды
 @dispatcher.message_handler(lambda s: s.text in ["/help", "📄Список команд"])
@@ -48,24 +48,25 @@ async def _support(message: Message):
 
 @dispatcher.message_handler(commands=["start"])
 async def _start(message: Message):
-    await message.reply("Привет! Этот бот позволяет получать новости мероприятий. Используйте кнопки ниже для навигации или напишите /help для просмотра списка команд.",
-                        reply_markup=main_kb)
+    await message.reply(
+        "Привет! Этот бот позволяет получать новости мероприятий. Используйте кнопки ниже для навигации или напишите /help для просмотра списка команд.",
+        reply_markup=main_kb)
 
 
 @dispatcher.message_handler(commands=["list"])
 async def _list(message: Message):
-    text=""
+    text = ""
     for _id, tag in data_loader.get_hashtags().items():  # добавляем каждое мероприятие
         print(tag["description"])
-        text+= str(_id) +". " + tag["description"] + " - " + "https://vk.com/" + (str(tag["id"]) if not str(tag["id"]).startswith("-") else "club" + str(tag["id"])[1::]) + "\n"
+        text += str(_id) + ". " + tag["description"] + " - " + "https://vk.com/" + (
+            str(tag["id"]) if not str(tag["id"]).startswith("-") else "club" + str(tag["id"])[1::]) + "\n"
     await message.reply(f"Список всех мероприятий\n" + text)
-
 
 
 @dispatcher.message_handler(lambda s: s.text in ["/s", "📣Подписаться на новости"])
 async def _subscribe_menu(message: Message):
-    await message.reply("Список доступных мероприятий:\n 🔔 - вы подписаны \n 🔕 - вы не подписаны", reply_markup=get_subscribe_menu(message.from_user.id))
-
+    await message.reply("Список доступных мероприятий:\n 🔔 - вы подписаны \n 🔕 - вы не подписаны",
+                        reply_markup=get_subscribe_menu(message.from_user.id))
 
 
 @dispatcher.message_handler(commands=["subscribe"])
@@ -88,6 +89,7 @@ async def _toggle_subscribe(call: CallbackQuery):  # подписывает/от
     data_loader.write_hashtags(tags)
     await call.answer("Успех!")
     await call.message.edit_reply_markup(reply_markup=get_subscribe_menu(call.from_user.id))
+
 
 #################################################################################
 

@@ -3,8 +3,11 @@ import vk_api
 import asyncio
 import data_loader
 import config
+
 bot = None
-def get_posts(id): #получает посты по id
+
+
+def get_posts(id):  # получает посты по id
     vk_session = vk_api.VkApi(token=config.vktoken)
     _vk_api = vk_session.get_api()
     tools = vk_api.VkTools(_vk_api)
@@ -12,7 +15,7 @@ def get_posts(id): #получает посты по id
     return wall["items"]
 
 
-async def vk_poll(_bot): # загружает посты и проверяет новости каждые refresh_period секунд
+async def vk_poll(_bot):  # загружает посты и проверяет новости каждые refresh_period секунд
     global bot
     bot = _bot
     while True:
@@ -22,13 +25,12 @@ async def vk_poll(_bot): # загружает посты и проверяет �
             print(tag)
             sent_posts = data_loader.get_posts()
             for post in posts:
-                print(post)
                 if not str(str(tag["id"]) + "_" + str(post["id"])) in sent_posts:
                     await process_post(post, sent_posts, tag)
         await asyncio.sleep(config.refresh_period)
 
 
-async def process_post(post, sent_posts, tag): # обрабатывает пост и отправляет пользователю
+async def process_post(post, sent_posts, tag):  # обрабатывает пост и отправляет пользователю
     if not tag["hashtag"].lower() in post["text"].lower():
         return
     for user in tag["subscribed"]:
