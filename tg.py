@@ -20,7 +20,7 @@ def get_subscribe_menu(id):  # генерирует меню подписки/о
     return menu
 
 
-main_kb = ReplyKeyboardMarkup()
+main_kb = ReplyKeyboardMarkup(resize_keyboard=True)
 b_subscribe_menu = KeyboardButton("Подписаться на новости")
 b_support = KeyboardButton("Обратная связь")
 main_kb.add(b_subscribe_menu)
