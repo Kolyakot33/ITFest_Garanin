@@ -33,6 +33,8 @@ main_kb.insert(b_help)
 @dispatcher.message_handler(lambda s: s.text in ["/help", "Список команд"])
 async def _help(message: Message):
     await message.reply("Вот список доступных команд:\n"
+                        "/help - эта справка\n"
+                        "/list - список мероприятий и ссылки на группы\n"
                         "/subscribe <id>- подписаться на новости/отписаться от новостей\n"
                         "/support - обратная связь\n"
                         "/s - кнопки для подписки/отписки")
