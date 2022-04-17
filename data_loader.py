@@ -2,14 +2,14 @@ import ujson
 
 
 def get_hashtags() -> dict:  # загружаем мероприятия
-    with open("hashtags.json", "r", encoding='utf-8') as f:
+    with open("hashtags.json", "r", encoding="utf-8") as f:
         hashtags = ujson.loads(f.read())
     return hashtags
 
 
 def write_hashtags(users: dict):  # записываем мероприятия
     with open("hashtags.json", "w") as f:
-        f.write(ujson.dumps(users))
+        f.write(ujson.dumps(users, ensure_ascii=False))
 
 
 def get_posts() -> list:  # загружаем список уже отправленных постов
