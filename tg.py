@@ -23,12 +23,14 @@ def get_subscribe_menu(id):  # генерирует меню подписки/о
 main_kb = ReplyKeyboardMarkup(resize_keyboard=True)
 b_subscribe_menu = KeyboardButton("Подписаться на новости")
 b_support = KeyboardButton("Обратная связь")
+b_help = KeyboardButton("Список команд")
 main_kb.add(b_subscribe_menu)
 main_kb.add(b_support)
+main_kb.insert(b_help)
 
 # команды
 
-@dispatcher.message_handler(commands=["help"])
+@dispatcher.message_handler(lambda s: s.text in ["/help", "Список команд"])
 async def _help(message: Message):
     await message.reply("Вот список доступных команд:\n"
                         "/subscribe <id>- подписаться на новости/отписаться от новостей\n"
