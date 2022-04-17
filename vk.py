@@ -3,7 +3,9 @@ import vk_api
 import asyncio
 import data_loader
 import config
-from tg import send_photo, send_message
+from main import bot
+send_photo = bot.send_photo
+send_message = bot.send_message
 
 
 def get_posts(id): #получает посты по id

@@ -2,7 +2,7 @@
 
 import asyncio
 import uvloop
-from tg import dispatcher
+from tg import dispatcher, bot
 from vk import vk_poll
 
 # запуск
