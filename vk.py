@@ -11,7 +11,7 @@ def get_posts(id):  # получает посты по id
     vk_session = vk_api.VkApi(token=config.vktoken)
     _vk_api = vk_session.get_api()
     tools = vk_api.VkTools(_vk_api)
-    wall = tools.get_all('wall.get', 5, {'owner_id': id})
+    wall = tools.get_all('wall.get', 1, {'owner_id': id})
     return wall["items"]
 
 
