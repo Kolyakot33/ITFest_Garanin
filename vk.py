@@ -20,6 +20,7 @@ async def vk_poll(_bot):  # загружает посты и проверяет 
     bot = _bot
     while True:
         print("POLL!")
+        print(data_loader.get_hashtags().items())
         for _id, tag in data_loader.get_hashtags().items():
             posts = get_posts(tag["id"])
             print(tag)
