@@ -8,7 +8,7 @@ from tg import send_photo, send_message
 
 def get_posts(id):
 
-    vk_session = vk_api.VkApi(config.login, config.password)
+    vk_session = vk_api.VkApi(config.vktoken)
     try:
         vk_session.auth(token_only=True)
     except vk_api.AuthError as error_msg:

@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
 
 import asyncio
+import uvloop
 from tg import dispatcher
 from vk import vk_poll
 
 # запуск
+uvloop.install()
 ioloop = asyncio.get_event_loop()
 tasks = [
     ioloop.create_task(vk_poll()),  # проверка записей
