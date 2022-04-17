@@ -19,15 +19,15 @@ async def vk_poll(_bot):  # загружает посты и проверяет 
     global bot
     bot = _bot
     while True:
-        print("POLL!")
-        print(data_loader.get_hashtags().items())
+        print("Получение записей..")
         for _id, tag in data_loader.get_hashtags().items():
-            posts = get_posts(tag["id"])
             print(tag)
+            posts = get_posts(tag["id"])
             sent_posts = data_loader.get_posts()
             for post in posts:
                 if not str(str(tag["id"]) + "_" + str(post["id"])) in sent_posts:
                     await process_post(post, sent_posts, tag)
+        print("Завершено")
         await asyncio.sleep(config.refresh_period)
 
 

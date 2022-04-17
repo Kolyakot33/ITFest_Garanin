@@ -34,7 +34,7 @@ async def _help(message: Message):
     await message.reply("Вот список доступных команд:\n"
                         "/help - эта справка\n"
                         "/list - список мероприятий и ссылки на группы\n"
-                        "/subscribe <id>- подписаться на новости/отписаться от новостей\n"
+                        "/subscribe <id мероприятия из списка>- подписаться на новости/отписаться от новостей\n"
                         "/support - обратная связь\n"
                         "/s - кнопки для подписки/отписки")
 
@@ -89,14 +89,3 @@ async def _toggle_subscribe(call: CallbackQuery):  # подписывает/от
     data_loader.write_hashtags(tags)
     await call.answer("Успех!")
     await call.message.edit_reply_markup(reply_markup=get_subscribe_menu(call.from_user.id))
-
-
-#################################################################################
-
-# для отправки из vk.py
-async def send_message(**kwargs):
-    await bot.send_message(**kwargs)
-
-
-async def send_photo(**kwargs):
-    await bot.send_photo(**kwargs)
