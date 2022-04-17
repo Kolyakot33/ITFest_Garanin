@@ -20,6 +20,7 @@ def get_posts(id): #получает посты по id
 
 async def vk_poll(): # загружает посты и проверяет новости каждые refresh_period секунд
     while True:
+        print("POLL!")
         for tag in data_loader.get_hashtags().values():
             posts = get_posts(tag["id"])
             sent_posts = data_loader.get_posts()
@@ -30,6 +31,7 @@ async def vk_poll(): # загружает посты и проверяет но�
 
 
 async def process_post(post, sent_posts, tag): # обрабатывает пост и отправляет пользователю
+    print(post)
     if not tag["hashtag"].lower() in post["text"].lower():
         return
     for user in tag["subscribed"]:
