@@ -9,7 +9,7 @@ def get_hashtags() -> dict:  # загружает мероприятия
 
 def write_hashtags(users: dict):  # записывает мероприятия
     with open("hashtags.json", "w") as f:
-        f.write(ujson.dumps(users))
+        f.write(ujson.dumps(users, ensure_ascii=False))
 
 
 def get_posts() -> list:  # загружает список уже отправленных постов
