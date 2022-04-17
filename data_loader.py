@@ -8,7 +8,7 @@ def get_hashtags() -> dict:  # загружаем мероприятия
 
 
 def write_hashtags(users: dict):  # записываем мероприятия
-    with open("hashtags.json", "w", encoding='utf-8') as f:
+    with open("hashtags.json", "w") as f:
         f.write(ujson.dumps(users))
 
 
@@ -19,5 +19,5 @@ def get_posts() -> list:  # загружаем список уже отправ�
 
 
 def write_posts(users: list):  # записываем отправленные посты
-    with open("posts.json", "w", encoding='utf-8') as f:
+    with open("posts.json", "w") as f:
         f.write(ujson.dumps(users))
