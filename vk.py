@@ -3,11 +3,7 @@ import vk_api
 import asyncio
 import data_loader
 import config
-from main import bot
-send_photo = bot.send_photo
-send_message = bot.send_message
-
-
+bot = None
 def get_posts(id): #получает посты по id
     vk_session = vk_api.VkApi(token=config.vktoken)
     _vk_api = vk_session.get_api()
@@ -16,7 +12,8 @@ def get_posts(id): #получает посты по id
     return wall["items"]
 
 
-async def vk_poll(): # загружает посты и проверяет новости каждые refresh_period секунд
+async def vk_poll(_bot): # загружает посты и проверяет новости каждые refresh_period секунд
+    bot = _bot
     while True:
         print("POLL!")
         for _id, tag in data_loader.get_hashtags().items():
@@ -34,19 +31,19 @@ async def process_post(post, sent_posts, tag): # обрабатывает пос
     if not tag["hashtag"].lower() in post["text"].lower():
         return
     for user in tag["subscribed"]:
-        await send_message(user, post["text"])
+        await bot.send_message(user, post["text"])
     if "attachments" in post:
         for attachment in post["attachments"]:
             if "photo" in attachment:
                 for user in tag["subscribed"]:
                     try:
-                        await send_photo(user, attachment["photo"]["sizes"][-1]["url"])
+                        await bot.send_photo(user, attachment["photo"]["sizes"][-1]["url"])
                     except Exception:
                         pass
             elif "video" in attachment:
                 for user in tag["subscribed"]:
                     try:
-                        await send_message(user, attachment["video"]["photo_130"])
+                        await bot.send_message(user, attachment["video"]["photo_130"])
                     except Exception:
                         pass
     if "copy_history" in post:
