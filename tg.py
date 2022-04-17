@@ -87,5 +87,5 @@ async def _toggle_subscribe(call: CallbackQuery):  # подписывает/от
     else:
         tags[_id]["subscribed"].append(call.from_user.id)
     data_loader.write_hashtags(tags)
-    await call.answer("Успех!")
+    await call.answer("Успешно!")
     await call.message.edit_reply_markup(reply_markup=get_subscribe_menu(call.from_user.id))
