@@ -4,13 +4,12 @@
 ```shell
 git clone https://github.com/Kolyakot33/it-fest
 cd it-fest
-pip install poetry
-poetry install
+pip install -r requirements.txt
 ```
 #### Далее необходимо добавить токены telegram и VK в config.py.
 
 ### Запуск
 ```shell
-poetry run python main.py
+python3 main.py
 ```
 

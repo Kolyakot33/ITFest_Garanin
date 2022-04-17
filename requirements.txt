@@ -1,0 +1,5 @@
+vk-api
+aiogram
+ujson
+uvloop
+aiohttp[speedups]
